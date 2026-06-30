@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woo Customer Group Discount
  * Description: Define customer groups, give each a percentage discount, and assign customers from one admin panel.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      sourov
  * Requires Plugins: woocommerce
  * License:     GPL-2.0-or-later
