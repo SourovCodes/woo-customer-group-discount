@@ -2,11 +2,12 @@
 /**
  * Plugin Name: Woo Customer Group Discount
  * Description: Define customer groups, give each a percentage discount, and assign customers from one admin panel.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      sourov
  * Requires Plugins: woocommerce
  * License:     GPL-2.0-or-later
  * Text Domain: woo-customer-group-discount
+ * Domain Path: /languages
  *
  * @package WooCustomerGroupDiscount
  */
@@ -19,6 +20,16 @@ define( 'WCGD_DIR', plugin_dir_path( __FILE__ ) );
 require_once WCGD_DIR . 'includes/calc.php';
 require_once WCGD_DIR . 'includes/discount.php';
 require_once WCGD_DIR . 'includes/admin-page.php';
+
+/**
+ * Load translations (e.g. languages/woo-customer-group-discount-de_DE.mo). On `init` to satisfy WP 6.7+.
+ */
+add_action(
+	'init',
+	function () {
+		load_plugin_textdomain( 'woo-customer-group-discount', false, dirname( plugin_basename( WCGD_FILE ) ) . '/languages' );
+	}
+);
 
 /**
  * Declare HPOS compatibility — we never touch orders, so just declare compatible.

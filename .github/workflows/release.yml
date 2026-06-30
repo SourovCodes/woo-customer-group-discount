@@ -55,6 +55,7 @@ jobs:
 
           # Copy plugin files (dev files like tests/ are intentionally excluded)
           cp -r includes build/woo-customer-group-discount/
+          cp -r languages build/woo-customer-group-discount/
           cp woo-customer-group-discount.php build/woo-customer-group-discount/
           cp readme.txt build/woo-customer-group-discount/ 2>/dev/null || true
 

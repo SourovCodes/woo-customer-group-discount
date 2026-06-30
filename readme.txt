@@ -4,7 +4,7 @@ Tags: woocommerce, discount, customer groups, wholesale, pricing
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,7 @@ panel under **WooCommerce → Customer Groups**.
   * **Adjusted prices** — product prices are reduced everywhere, wholesale/B2B style.
 * No custom database tables; built on WordPress options and user meta.
 * Compatible with WooCommerce High-Performance Order Storage (HPOS).
+* Translation-ready; ships with German (de_DE).
 
 One customer belongs to one group. The discount applies store-wide to the cart subtotal.
 
@@ -49,6 +50,9 @@ alongside any coupons.
 Inside the group's edit screen in the Customer Groups panel — search for the customer and add them.
 
 == Changelog ==
+
+= 1.0.3 =
+* Add German (de_DE) translation and load the plugin text domain.
 
 = 1.0.2 =
 * Add a configurable per-group label for the cart/checkout discount line (supports a {percent} token).
