@@ -49,9 +49,15 @@ class WCGD_Discount {
 		$groups   = wcgd_get_groups();
 		$group_id = get_user_meta( get_current_user_id(), 'wcgd_group', true );
 		$name     = isset( $groups[ $group_id ] ) ? $groups[ $group_id ]['name'] : __( 'Group discount', 'woo-customer-group-discount' );
+		$label    = isset( $groups[ $group_id ]['label'] ) ? $groups[ $group_id ]['label'] : '';
+
+		// Custom label shown verbatim ({percent} token replaced); blank falls back to "Name (15%)".
+		$text = ( '' !== $label )
+			? str_replace( '{percent}', wc_format_localized_decimal( $percent ), $label )
+			: sprintf( '%s (%s%%)', $name, wc_format_localized_decimal( $percent ) );
 
 		// ponytail: negative fee on ex-tax subtotal; switch to per-line price adjustment if precise tax-on-discount is needed.
-		$cart->add_fee( sprintf( '%s (%s%%)', $name, wc_format_localized_decimal( $percent ) ), -$discount, false );
+		$cart->add_fee( $text, -$discount, false );
 	}
 
 	/**

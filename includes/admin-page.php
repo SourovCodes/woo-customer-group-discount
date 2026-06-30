@@ -157,7 +157,7 @@ class WCGD_Admin {
 	private static function render_form( $id ) {
 		$groups   = wcgd_get_groups();
 		$is_new   = ( 0 === $id || ! isset( $groups[ $id ] ) );
-		$group    = $is_new ? array( 'name' => '', 'percent' => '' ) : $groups[ $id ];
+		$group    = $is_new ? array( 'name' => '', 'percent' => '', 'label' => '' ) : array_merge( array( 'label' => '' ), $groups[ $id ] );
 		$members  = $is_new ? array() : self::members( $id );
 		$post_url = esc_url( admin_url( 'admin-post.php' ) );
 		$back_url = esc_url( admin_url( 'admin.php?page=' . self::PAGE ) );
@@ -175,6 +175,10 @@ class WCGD_Admin {
 
 		echo '<tr><th><label for="wcgd-percent">' . esc_html__( 'Discount %', 'woo-customer-group-discount' ) . '</label></th>';
 		echo '<td><input name="percent" id="wcgd-percent" type="number" min="0" max="100" step="0.01" required value="' . esc_attr( $group['percent'] ) . '" /></td></tr>';
+
+		echo '<tr><th><label for="wcgd-label">' . esc_html__( 'Cart discount label', 'woo-customer-group-discount' ) . '</label></th>';
+		echo '<td><input name="label" id="wcgd-label" type="text" class="regular-text" value="' . esc_attr( $group['label'] ) . '" />';
+		echo '<p class="description">' . esc_html__( 'Text shown on the discount line at cart/checkout (cart mode). Use {percent} for the percentage. Leave blank to use the group name, e.g. "Gold (15%)".', 'woo-customer-group-discount' ) . '</p></td></tr>';
 
 		echo '<tr><th><label for="wcgd-members">' . esc_html__( 'Members', 'woo-customer-group-discount' ) . '</label></th><td>';
 		echo '<select id="wcgd-members" class="wc-customer-search" multiple="multiple" style="width:50%" name="members[]" data-placeholder="' . esc_attr__( 'Search for a customer…', 'woo-customer-group-discount' ) . '" data-action="woocommerce_json_search_customers">';
@@ -228,6 +232,7 @@ class WCGD_Admin {
 		$id      = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		$name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 		$percent = isset( $_POST['percent'] ) ? max( 0.0, min( 100.0, (float) $_POST['percent'] ) ) : 0.0;
+		$label   = isset( $_POST['label'] ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
 
 		if ( '' === $name ) {
 			self::redirect_back();
@@ -240,6 +245,7 @@ class WCGD_Admin {
 		$groups[ $id ] = array(
 			'name'    => $name,
 			'percent' => $percent,
+			'label'   => $label,
 		);
 		update_option( 'wcgd_groups', $groups );
 
